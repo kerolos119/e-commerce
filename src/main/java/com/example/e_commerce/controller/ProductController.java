@@ -1,7 +1,9 @@
 package com.example.e_commerce.controller;
 
 import com.example.e_commerce.dto.ProductDto;
+import com.example.e_commerce.services.ManifactureService;
 import com.example.e_commerce.services.ProductServices;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,12 +18,13 @@ public class ProductController {
     private ProductServices prservices;
 
     @PostMapping
-    public String save(@RequestBody ProductDto pdto) {
+    public String save(@Valid @RequestBody ProductDto pdto) {
 
         return prservices.save(pdto);
     }
     @GetMapping
     public List<ProductDto> getAll(){
+
         return prservices.getAll();
     }
     @GetMapping("/{id}")
@@ -34,8 +37,8 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ProductDto updateById(@PathVariable String id ,@RequestBody ProductDto dto){
-
+    public ProductDto updateById(@PathVariable String id ,@RequestBody ProductDto dto)
+    {
         return prservices.updateById(id,dto);
     }
 }

@@ -1,6 +1,8 @@
 package com.example.e_commerce.dto;
 
 import com.example.e_commerce.document.Merchant;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,9 +20,13 @@ public class MerchantDto {
     }
 
     private String id;
+    @NotEmpty
     private String name;
+    @NotEmpty
     private String description;
+    @NotEmpty
     private String address;
+    @NotEmpty
     private String phone;
 
 }

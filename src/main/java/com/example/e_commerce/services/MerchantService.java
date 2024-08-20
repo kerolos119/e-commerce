@@ -2,8 +2,10 @@ package com.example.e_commerce.services;
 
 import com.example.e_commerce.document.Merchant;
 import com.example.e_commerce.dto.MerchantDto;
+import com.example.e_commerce.excpetion.CustomException;
 import com.example.e_commerce.repo.MerchantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -30,9 +32,12 @@ public class MerchantService {
         if (entity.isPresent()){
             return new MerchantDto(entity.get());
         }
-        throw new RuntimeException("Not Found Id (please try again)");
+        throw new CustomException("merchant.not.found", HttpStatus.NOT_FOUND);
     }
     public void deleteById(String id){
+        if (!merepo.existsById(id)){
+            throw new CustomException("merchant.not.found",HttpStatus.NOT_FOUND);
+        }
         merepo.deleteById(id);
     }
 
@@ -43,5 +48,10 @@ public class MerchantService {
         oldmer.setAddress((merdto.getAddress()));
         oldmer.setPhone((merdto.getPhone()));
         return new MerchantDto(merepo.save(oldmer));
+    }
+
+    public boolean merchantExist(String merchent) {
+        return merepo.existsById(merchent);
+
     }
 }

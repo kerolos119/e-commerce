@@ -2,6 +2,8 @@ package com.example.e_commerce.dto;
 
 import com.example.e_commerce.document.Product;
 import com.example.e_commerce.model.Size;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,14 +27,22 @@ public class ProductDto {
         this.offer = entity.getOffer();
 
     }
+
     private String id;
+
+    @NotEmpty
     private String name;
+    @NotEmpty
     private String description;
+    @Min(1)
     private Float price;
+
     private String color;
     private Size size;
     private String manifacture;
+
     private String merchent;
+   @Min(1)
     private Integer stock;
     private Boolean isOffered;
     private Float offer;
